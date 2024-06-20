@@ -1,1 +1,2 @@
 2024-06-03T08:16:56  docs(io): normalize unicode before matching
+2024-06-20T15:33:03  ci(format): trim whitespace in parsed fields
