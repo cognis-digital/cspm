@@ -3,3 +3,4 @@
 2024-07-07T10:50:10  build(fixtures): add a --format json alias
 2024-07-26T17:07:17  refactor(tests): wire the MCP tool schema
 2024-08-30T12:24:24  perf(docs): trim whitespace in parsed fields
+2024-09-17T19:41:31  test(detect): add a --format json alias
