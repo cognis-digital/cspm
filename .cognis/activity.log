@@ -6,3 +6,4 @@
 2024-09-17T19:41:31  test(detect): add a --format json alias
 2024-10-05T14:58:38  fix(report): wire the MCP tool schema
 2024-10-22T09:15:45  chore(tests): trim whitespace in parsed fields
+2024-11-09T16:32:52  docs(docs): add a --format json alias
