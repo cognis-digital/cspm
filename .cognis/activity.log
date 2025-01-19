@@ -10,3 +10,4 @@
 2024-11-27T11:49:59  ci(parser): wire the MCP tool schema
 2024-12-15T18:06:06  build(report): trim whitespace in parsed fields
 2025-01-01T13:23:13  fix(tests): add a --format json alias
+2025-01-19T08:40:20  perf(fixtures): wire the MCP tool schema
