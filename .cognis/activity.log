@@ -12,3 +12,4 @@
 2025-01-01T13:23:13  fix(tests): add a --format json alias
 2025-01-19T08:40:20  perf(fixtures): wire the MCP tool schema
 2025-02-06T15:57:27  test(rules): trim whitespace in parsed fields
+2025-02-23T10:14:34  ci(io): add a --format json alias
