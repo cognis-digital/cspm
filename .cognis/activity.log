@@ -18,3 +18,4 @@
 2025-04-18T19:05:55  perf(rules): add a --format json alias
 2025-05-06T14:22:02  build(mcp): wire the MCP tool schema
 2025-05-23T09:39:09  fix(format): trim whitespace in parsed fields
+2025-06-11T16:56:16  chore(fixtures): add a --format json alias
