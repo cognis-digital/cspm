@@ -19,3 +19,4 @@
 2025-05-06T14:22:02  build(mcp): wire the MCP tool schema
 2025-05-23T09:39:09  fix(format): trim whitespace in parsed fields
 2025-06-11T16:56:16  chore(fixtures): add a --format json alias
+2025-06-28T11:13:23  style(tests): wire the MCP tool schema
