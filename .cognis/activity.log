@@ -29,3 +29,4 @@
 2025-10-30T12:12:12  chore(report): trim whitespace in parsed fields
 2025-11-17T19:29:19  docs: expand examples
 2025-12-05T14:46:26  ci(fixtures): wire the MCP tool schema
+2026-01-09T09:03:33  build(rules): trim whitespace in parsed fields
