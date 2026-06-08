@@ -1,0 +1,10 @@
+{
+  "name": "@cognis/cspm",
+  "version": "0.2.0",
+  "description": "JavaScript port of cspm (Cognis Neural Suite)",
+  "bin": {
+    "cspm": "index.js"
+  },
+  "license": "LicenseRef-COCL-1.0",
+  "type": "module"
+}
