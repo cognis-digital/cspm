@@ -1,0 +1,85 @@
+{
+  "account_id": "123456789012",
+  "provider": "aws",
+  "buckets": [
+    {
+      "name": "prod-static-assets",
+      "acl": "public-read",
+      "public_access_block": false,
+      "encryption": "AES256",
+      "versioning": true,
+      "logging": true
+    },
+    {
+      "name": "customer-backups",
+      "acl": "public-read-write",
+      "public_access_block": false,
+      "policy_public": true,
+      "encryption": null,
+      "versioning": false,
+      "logging": false
+    },
+    {
+      "name": "app-logs",
+      "acl": "private",
+      "public_access_block": true,
+      "encryption": "aws:kms",
+      "versioning": false,
+      "logging": false
+    }
+  ],
+  "security_groups": [
+    {
+      "id": "sg-web",
+      "ingress": [
+        {"protocol": "tcp", "from_port": 80, "to_port": 80, "cidr": "0.0.0.0/0"},
+        {"protocol": "tcp", "from_port": 443, "to_port": 443, "cidr": "0.0.0.0/0"},
+        {"protocol": "tcp", "from_port": 8080, "to_port": 8080, "cidr": "0.0.0.0/0"}
+      ]
+    },
+    {
+      "id": "sg-db",
+      "ingress": [
+        {"protocol": "tcp", "port": 5432, "cidr": "0.0.0.0/0"},
+        {"protocol": "tcp", "port": 22, "cidr": "0.0.0.0/0"}
+      ]
+    },
+    {
+      "id": "sg-legacy",
+      "ingress": [
+        {"protocol": "-1", "from_port": 0, "to_port": 65535, "cidr": "0.0.0.0/0"}
+      ]
+    }
+  ],
+  "iam_users": [
+    {
+      "name": "deploy-bot",
+      "console_access": false,
+      "mfa_enabled": false,
+      "access_keys": [
+        {"id": "AKIA0001", "active": true, "age_days": 140},
+        {"id": "AKIA0002", "active": true, "age_days": 12}
+      ]
+    },
+    {
+      "name": "alice-admin",
+      "admin": true,
+      "console_access": true,
+      "mfa_enabled": false,
+      "access_keys": [
+        {"id": "AKIA9999", "active": true, "age_days": 30}
+      ]
+    }
+  ],
+  "iam_policies": [
+    {
+      "name": "legacy-allow-all",
+      "document": {
+        "Version": "2012-10-17",
+        "Statement": [
+          {"Effect": "Allow", "Action": "*", "Resource": "*"}
+        ]
+      }
+    }
+  ]
+}
