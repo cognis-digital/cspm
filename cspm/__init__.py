@@ -1,27 +1,11 @@
-"""CSPM — Cloud Security Posture Management (defensive triage).
-
-Reads a cloud configuration export (JSON) and reports posture findings:
-public storage buckets, open security groups, weak IAM, and more.
-
-Standard library only. Zero install. Analysis on artifacts you own.
-"""
-from .core import (
-    Finding,
-    SEVERITY_ORDER,
-    load_config,
-    scan,
-    summarize,
-)
-
-TOOL_NAME = "cspm"
-TOOL_VERSION = "1.0.0"
-
-__all__ = [
-    "Finding",
-    "SEVERITY_ORDER",
-    "load_config",
-    "scan",
-    "summarize",
-    "TOOL_NAME",
-    "TOOL_VERSION",
-]
+"""cspm — part of the Cognis Neural Suite."""
+try:  # re-export the tool's public API + identity from core
+    from cspm.core import *  # noqa: F401,F403
+except Exception:  # pragma: no cover
+    pass
+try:
+    from cspm.core import TOOL_NAME, TOOL_VERSION
+except Exception:  # pragma: no cover
+    TOOL_NAME = "cspm"
+    TOOL_VERSION = "0.1.0"
+__version__ = TOOL_VERSION
