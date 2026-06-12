@@ -5,7 +5,6 @@ import argparse
 import html
 import json
 import sys
-from typing import Any
 
 from . import TOOL_NAME, TOOL_VERSION
 from .core import SEVERITY_ORDER, load_config, scan, summarize

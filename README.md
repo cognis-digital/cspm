@@ -16,7 +16,7 @@
 </div>
 
 ```bash
-pip install cognis-cspm
+pip install "git+https://github.com/cognis-digital/cspm.git"
 cspm scan .            # → prioritized findings in seconds
 ```
 
@@ -48,7 +48,7 @@ Cloud security posture from a config export (public buckets, open SGs, weak IAM)
 ## Quick start
 
 ```bash
-pip install cognis-cspm
+pip install "git+https://github.com/cognis-digital/cspm.git"
 cspm --version
 cspm scan .                       # scan current project
 cspm scan . --format json         # machine-readable
