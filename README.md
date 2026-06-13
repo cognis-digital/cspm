@@ -20,6 +20,12 @@ pip install "git+https://github.com/cognis-digital/cspm.git"
 cspm scan .            # → prioritized findings in seconds
 ```
 
+<!-- cognis:layman:start -->
+## What is this?
+
+CSPM checks your cloud account's security settings — things like storage buckets, firewall rules, and user accounts — and tells you which ones are dangerously misconfigured. You give it a JSON snapshot of your cloud setup and it instantly flags problems such as publicly readable storage, database ports open to the internet, and admin accounts without multi-factor authentication. It runs entirely on your own machine with no cloud account or signup needed, and outputs results as a plain table, JSON, or an HTML report you can share with your team. It is aimed at developers and security engineers who want a fast, offline sanity-check before deploying or reviewing infrastructure.
+<!-- cognis:layman:end -->
+
 ## Contents
 
 - [Why cspm?](#why) · [Features](#features) · [Quick start](#quick-start) · [Example](#example) · [Architecture](#architecture) · [AI stack](#ai-stack) · [How it compares](#how-it-compares) · [Integrations](#integrations) · [Install anywhere](#install-anywhere) · [Related](#related) · [Contributing](#contributing)
@@ -45,6 +51,42 @@ Cloud security posture from a config export (public buckets, open SGs, weak IAM)
 <div align="right"><a href="#top">↑ back to top</a></div>
 
 <a name="quick-start"></a>
+<!-- cognis:install:start -->
+## Install
+
+`cspm` is source-available (not published to PyPI) — every method below installs
+straight from GitHub. Pick whichever you prefer; the one-line scripts auto-detect
+the best tool available on your machine.
+
+**One-liner (Linux / macOS):**
+```sh
+curl -fsSL https://raw.githubusercontent.com/cognis-digital/cspm/HEAD/install.sh | sh
+```
+
+**One-liner (Windows PowerShell):**
+```powershell
+irm https://raw.githubusercontent.com/cognis-digital/cspm/HEAD/install.ps1 | iex
+```
+
+**Or install manually — any one of:**
+```sh
+pipx install "git+https://github.com/cognis-digital/cspm.git"     # isolated (recommended)
+uv tool install "git+https://github.com/cognis-digital/cspm.git"  # uv
+pip install "git+https://github.com/cognis-digital/cspm.git"      # pip
+```
+
+**From source:**
+```sh
+git clone https://github.com/cognis-digital/cspm.git
+cd cspm && pip install .
+```
+
+Then run:
+```sh
+cspm --help
+```
+<!-- cognis:install:end -->
+
 ## Quick start
 
 ```bash
