@@ -20,6 +20,42 @@ pip install cognis-cspm
 cspm scan .            # → prioritized findings in seconds
 ```
 
+## Usage — step by step
+
+1. Install the CLI (Python 3.9+):
+
+   ```bash
+   pip install cspm           # or: pip install .   from a checkout
+   ```
+
+2. Scan a cloud configuration export — the `scan` subcommand evaluates posture checks against config you own (no live cloud calls):
+
+   ```bash
+   cspm scan export.json
+   ```
+
+   The `table` view groups findings by severity (CRITICAL/HIGH/MEDIUM/LOW/INFO) with a recommendation per finding.
+
+3. Produce a shareable HTML report or machine-readable JSON:
+
+   ```bash
+   cspm scan export.json --format html > posture.html
+   cspm scan export.json --format json > posture.json
+   ```
+
+4. Read the result — parse the summary for triage:
+
+   ```bash
+   cspm scan export.json --format json | jq '.summary.by_severity'
+   ```
+
+5. Gate CI on posture — surface high-severity findings on every config change:
+
+   ```bash
+   cspm scan export.json --format json | jq -e '.summary.by_severity.CRITICAL == 0'
+   ```
+
+
 ## Contents
 
 - [Why cspm?](#why) · [Features](#features) · [Quick start](#quick-start) · [Example](#example) · [Architecture](#architecture) · [AI stack](#ai-stack) · [How it compares](#how-it-compares) · [Integrations](#integrations) · [Install anywhere](#install-anywhere) · [Related](#related) · [Contributing](#contributing)
