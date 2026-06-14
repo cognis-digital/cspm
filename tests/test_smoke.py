@@ -135,3 +135,78 @@ class TestCLI(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestHardeningEdgeCases(unittest.TestCase):
+    """Tests added to cover error paths and edge cases hardened in core/cli."""
+
+    # --- scan() robustness: non-list section values ---
+
+    def test_scan_buckets_non_list_is_ignored(self):
+        """If 'buckets' is not a list (e.g. a string), scan() must not raise."""
+        result = scan({"buckets": "not-a-list"})
+        self.assertIsInstance(result, list)
+
+    def test_scan_security_groups_non_list_is_ignored(self):
+        result = scan({"security_groups": 42})
+        self.assertIsInstance(result, list)
+
+    def test_scan_iam_users_non_list_is_ignored(self):
+        result = scan({"iam_users": {"key": "val"}})
+        self.assertIsInstance(result, list)
+
+    def test_scan_iam_policies_non_list_is_ignored(self):
+        result = scan({"iam_policies": None})
+        self.assertIsInstance(result, list)
+
+    # --- _check_iam: non-dict policy document ---
+
+    def test_policy_with_non_dict_document_is_ignored(self):
+        """A policy whose 'document' is a string must not raise."""
+        config = {"iam_policies": [{"name": "bad", "document": "not-a-dict"}]}
+        result = scan(config)
+        # Should produce zero findings (no wildcard detected) without crashing
+        wildcard = [f for f in result if f.check_id == "IAM_WILDCARD_POLICY"]
+        self.assertEqual(wildcard, [])
+
+    def test_policy_with_none_document_is_ignored(self):
+        config = {"iam_policies": [{"name": "nulldoc", "document": None}]}
+        result = scan(config)
+        self.assertIsInstance(result, list)
+
+    # --- CLI: malformed JSON input ---
+
+    def test_malformed_json_exits_2(self):
+        import tempfile
+        with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as fh:
+            fh.write("{not valid json ...")
+            path = fh.name
+        try:
+            self.assertEqual(main(["scan", path]), 2)
+        finally:
+            os.unlink(path)
+
+    def test_json_array_instead_of_object_exits_2(self):
+        import tempfile
+        with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as fh:
+            json.dump([1, 2, 3], fh)
+            path = fh.name
+        try:
+            self.assertEqual(main(["scan", path]), 2)
+        finally:
+            os.unlink(path)
+
+    # --- mcp_server: module compiles and imports without error ---
+
+    def test_mcp_server_imports_cleanly(self):
+        """mcp_server must import without raising (to_json no longer referenced)."""
+        import importlib
+        try:
+            mod = importlib.import_module("cspm.mcp_server")
+            self.assertTrue(callable(getattr(mod, "serve", None)))
+        except ImportError as exc:
+            self.fail(f"cspm.mcp_server failed to import: {exc}")
+
+
+if __name__ == "__main__":
+    unittest.main()

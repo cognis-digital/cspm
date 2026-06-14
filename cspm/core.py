@@ -265,7 +265,9 @@ def _check_iam(users: list, policies: list) -> list[Finding]:
         if not isinstance(p, dict):
             continue
         pname = str(p.get("name", "<unknown-policy>"))
-        doc = p.get("document", {}) or {}
+        doc = p.get("document", {})
+        if not isinstance(doc, dict):
+            doc = {}
         stmts = doc.get("Statement", [])
         if isinstance(stmts, dict):
             stmts = [stmts]
@@ -284,14 +286,21 @@ def _check_iam(users: list, policies: list) -> list[Finding]:
     return findings
 
 
+def _as_list(val) -> list:
+    """Return *val* as a list, silently ignoring non-list values."""
+    if isinstance(val, list):
+        return val
+    return []
+
+
 def scan(config: dict) -> list[Finding]:
     """Run all checks over a config export and return sorted findings."""
     findings: list[Finding] = []
-    findings += _check_buckets(config.get("buckets", []) or [])
-    findings += _check_security_groups(config.get("security_groups", []) or [])
+    findings += _check_buckets(_as_list(config.get("buckets")))
+    findings += _check_security_groups(_as_list(config.get("security_groups")))
     findings += _check_iam(
-        config.get("iam_users", []) or [],
-        config.get("iam_policies", []) or [],
+        _as_list(config.get("iam_users")),
+        _as_list(config.get("iam_policies")),
     )
     findings.sort(
         key=lambda f: (-SEVERITY_ORDER.get(f.severity, 0), f.check_id, f.resource)
