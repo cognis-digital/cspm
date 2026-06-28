@@ -1,0 +1,13 @@
+$ cspm-emit --help
+
+usage: cspm [-h] [--version] {scan} ...
+
+Cloud security posture from a config export (defensive triage).
+
+positional arguments:
+  {scan}
+    scan      Scan a config export for posture findings.
+
+options:
+  -h, --help  show this help message and exit
+  --version   show program's version number and exit

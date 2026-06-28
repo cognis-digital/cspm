@@ -20,6 +20,59 @@ pip install cognis-cspm
 cspm scan .            # → prioritized findings in seconds
 ```
 
+
+<!-- cognis:example:start -->
+## 🔎 Example output
+
+Real, reproducible output from the tool — runs offline:
+
+```console
+$ cspm-emit --version
+cspm 0.1.0
+```
+
+```console
+$ cspm-emit --help
+usage: cspm [-h] [--version] {scan} ...
+
+Cloud security posture from a config export (defensive triage).
+
+positional arguments:
+  {scan}
+    scan      Scan a config export for posture findings.
+
+options:
+  -h, --help  show this help message and exit
+  --version   show program's version number and exit
+```
+
+> Blocks above are real `cspm` output — reproduce them from a clone.
+
+**Sample result format** _(illustrative values — run on your own data for real findings):_
+
+```
+{
+"findings": [
+    {
+        "id": "1234567890",
+        "title": "Suspicious Network Traffic",
+        "description": "Potential malicious activity detected on port 443.",
+        "created_by": "cspm-tool",
+        "created_at": "2023-02-20T14:30:00Z"
+    },
+    {
+        "id": "2345678901",
+        "title": "Unusual Login Attempt",
+        "description": "Failed login attempt from an unknown IP address.",
+        "created_by": "cspm-tool",
+        "created_at": "2023-02-20T14:31:00Z"
+    }
+]
+}
+```
+
+<!-- cognis:example:end -->
+
 ## Usage — step by step
 
 1. Install the CLI (Python 3.9+):
